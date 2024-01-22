@@ -1,0 +1,42 @@
+{
+    "config": {
+        "abort": {
+            "unique_id": "This Server has already been setup."
+        },
+        "error": {
+            "wrong_station_id": "The Station ID entered is not correct. Check that you are not using Device ID.",
+            "server_error": "WeatherFlow servers encountered an unexpected error",
+            "wrong_token": "The API Token is incorrect or does not match the Station ID.",
+            "offline_error": "Station either is offline or no recent observations. Check station status or remove Sensors and try again.",
+            "bad_request": "An unknown error occurred when retrieving data."
+        },
+        "step": {
+            "user": {
+                "description": "Set up connection to Meteobridge SQL",
+                "title": "Meteobridge SQL",
+                "data": {
+                    "mac": "MAC Address of Meteobridge",
+                    "host": "MySQL Host",
+                    "port": "MySQL Port",
+                    "username": "MySQL User",
+                    "password": "MySQL Password",
+                    "database": "Database name"
+                }
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "mac": "MAC Address of Meteobridge",
+                    "host": "MySQL Host",
+                    "port": "MySQL Port",
+                    "username": "MySQL User",
+                    "password": "MySQL Password",
+                    "database": "Database name"
+                }
+            }
+        }
+    }
+}
