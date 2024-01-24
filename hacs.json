@@ -1,5 +1,5 @@
 {
-    "name": "WeatherFlow Forecast and Sensor Integration",
+    "name": "Meteobridge MySQL Integration",
     "homeassistant": "2023.9.0",
     "render_readme": false
 }
