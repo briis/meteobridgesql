@@ -18,18 +18,13 @@ from homeassistant.const import (
     CONF_MAC,
     CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
     DEGREE,
-    EntityCategory,
-    LIGHT_LUX,
     PERCENTAGE,
     UnitOfIrradiance,
-    UnitOfLength,
     UnitOfPrecipitationDepth,
     UnitOfPressure,
     UnitOfSpeed,
     UnitOfTemperature,
-    UnitOfTime,
     UnitOfVolumetricFlux,
-    UnitOfElectricPotential,
     UV_INDEX,
 )
 from homeassistant.core import HomeAssistant
@@ -40,8 +35,6 @@ from homeassistant.helpers.update_coordinator import (
     CoordinatorEntity,
     DataUpdateCoordinator,
 )
-from homeassistant.util.dt import utc_from_timestamp
-from homeassistant.util.unit_system import METRIC_SYSTEM
 
 from . import MeteobridgeSQLDataUpdateCoordinator
 from .const import (

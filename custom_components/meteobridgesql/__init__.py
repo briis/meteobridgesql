@@ -3,7 +3,6 @@ from __future__ import annotations
 
 from datetime import timedelta
 import logging
-from random import randrange
 from types import MappingProxyType
 from typing import Any, Self
 
@@ -12,7 +11,6 @@ from pymeteobridgesql import (
     MeteobridgeSQLDataError,
     MeteobridgeSQL,
     RealtimeData,
-    StationData,
 )
 
 from homeassistant.config_entries import ConfigEntry
@@ -26,7 +24,6 @@ from homeassistant.const import  (
 )
 from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import HomeAssistantError, ConfigEntryNotReady, Unauthorized
-from homeassistant.helpers import device_registry as dr
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 
 from .const import (
