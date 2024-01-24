@@ -1,4 +1,4 @@
-# WeatherFlow Forecast and Sensor integration for Home Assistant
+# Meteobridge integration using MySQL
 Home Assistant integration for adding Weather Data from Meteobridge stored in a MySQL database.
 
 [![GitHub Release][releases-shield]][releases]
@@ -21,7 +21,7 @@ To add Meteobridge SQL to your installation, do the following:
 - When loaded, there will be a configuration box, where you must enter:
 
 
-- Click on SUBMIT to save your data. 
+- Click on SUBMIT to save your data.
 
 You can configure more than 1 instance of the Integration by using a different Station ID.
 
