@@ -14,7 +14,7 @@ from homeassistant.const import (
 )
 from homeassistant.core import callback
 from homeassistant.data_entry_flow import FlowResult
-from pymeteobridgesql import MeteobridgeSQL
+from pymeteobridgesql import MeteobridgeSQL, MeteobridgeSQLDatabaseConnectionError
 from .const import (CONF_DATABASE, DEFAULT_PORT, DOMAIN)
 
 _LOGGER = logging.getLogger(__name__)
@@ -38,8 +38,13 @@ class WeatherFlowForecastHandler(config_entries.ConfigFlow, domain=DOMAIN):
 
         errors = {}
 
-        meteobridge = MeteobridgeSQL(host=user_input[CONF_HOST],user=user_input[CONF_USERNAME],password=user_input[CONF_PASSWORD], database=user_input[CONF_DATABASE])
-        meteobridge.async_init()
+        try:
+            meteobridge = MeteobridgeSQL(host=user_input[CONF_HOST],user=user_input[CONF_USERNAME],password=user_input[CONF_PASSWORD], database=user_input[CONF_DATABASE])
+            await meteobridge.async_init()
+        except MeteobridgeSQLDatabaseConnectionError as error:
+            _LOGGER.error("Error connecting to MySQL Database: %s", error)
+            errors["base"] = "cannot_connect"
+            return await self._show_setup_form(errors)
 
         await self.async_set_unique_id(user_input[CONF_MAC])
         self._abort_if_unique_id_configured
@@ -71,6 +76,7 @@ class WeatherFlowForecastHandler(config_entries.ConfigFlow, domain=DOMAIN):
                 }
             ),
             errors=errors or {},
+
         )
 
 class WeatherFlowForecastOptionsFlowHandler(config_entries.OptionsFlow):

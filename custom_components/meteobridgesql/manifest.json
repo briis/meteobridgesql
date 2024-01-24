@@ -10,7 +10,7 @@
     "iot_class": "cloud_polling",
     "issue_tracker": "https://github.com/briis/meteobridgesql/issues",
     "requirements": [
-        "pymeteobridgesql==1.0.0"
+        "pymeteobridgesql==1.0.1"
     ],
     "version": "1.0.0"
 }

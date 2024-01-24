@@ -3,3 +3,4 @@ homeassistant==2024.1.5
 pip>=23.2.1,<23.4
 ruff==0.1.14
 ffmpeg==1.4
+mysql-connector-python==8.3.0
