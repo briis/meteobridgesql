@@ -14,7 +14,7 @@ from homeassistant.const import (
 )
 from homeassistant.core import callback
 from homeassistant.data_entry_flow import FlowResult
-from pymeteobridgesql import MeteobridgeSQL, MeteobridgeSQLDatabaseConnectionError
+from pymeteobridgesql import MeteobridgeSQL, MeteobridgeSQLDatabaseConnectionError, MeteobridgeSQLDataError, StationData
 from .const import (CONF_DATABASE, DEFAULT_PORT, DOMAIN)
 
 _LOGGER = logging.getLogger(__name__)
@@ -41,16 +41,21 @@ class WeatherFlowForecastHandler(config_entries.ConfigFlow, domain=DOMAIN):
         try:
             meteobridge = MeteobridgeSQL(host=user_input[CONF_HOST],user=user_input[CONF_USERNAME],password=user_input[CONF_PASSWORD], database=user_input[CONF_DATABASE])
             await meteobridge.async_init()
+            station_data: StationData = await meteobridge.async_get_station_data(user_input[CONF_MAC])
         except MeteobridgeSQLDatabaseConnectionError as error:
             _LOGGER.error("Error connecting to MySQL Database: %s", error)
             errors["base"] = "cannot_connect"
+            return await self._show_setup_form(errors)
+        except MeteobridgeSQLDataError as error:
+            _LOGGER.error("Failed to lookup data in the database: %s", error)
+            errors["base"] = "no_data"
             return await self._show_setup_form(errors)
 
         await self.async_set_unique_id(user_input[CONF_MAC])
         self._abort_if_unique_id_configured
 
         return self.async_create_entry(
-            title=f"Meteobride SQL ({user_input[CONF_MAC]})",
+            title=f"Meteobride SQL ({station_data.mb_stationname})",
             data={
                 CONF_MAC: user_input[CONF_MAC],
                 CONF_HOST: user_input[CONF_HOST],

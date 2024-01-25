@@ -4,7 +4,8 @@
             "unique_id": "This Server has already been setup."
         },
         "error": {
-            "cannot_connect": "Cannot connect to the MySQL Database. Please check your input and try again"
+            "cannot_connect": "Cannot connect to the MySQL Database. Please check your input and try again.",
+            "no_data": "Cannot retrieve data from the database. Does the table exist?"
         },
         "step": {
             "user": {

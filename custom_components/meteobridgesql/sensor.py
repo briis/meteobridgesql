@@ -254,7 +254,7 @@ class MeteobridgeSQLSensor(CoordinatorEntity[DataUpdateCoordinator], SensorEntit
             entry_type=DeviceEntryType.SERVICE,
             manufacturer=MANUFACTURER,
             model=_get_hw_platform(self.coordinator.data.sensor_data.mb_platform),
-            name=f"{self.coordinator.data.sensor_data.mb_stationname} Sensors",
+            name=f"{self.coordinator.data.sensor_data.mb_stationname} Sensor",
             configuration_url=f"http://{self.coordinator.data.sensor_data.mb_ip}",
             hw_version=f"{self.coordinator.data.sensor_data.mb_platform}",
             sw_version=f"{self.coordinator.data.sensor_data.mb_swversion}-{self.coordinator.data.sensor_data.mb_buildnum}",
