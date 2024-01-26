@@ -1,0 +1,97 @@
+{
+    "config": {
+        "abort": {
+            "unique_id": "Denne enhed er allerede konfigureret."
+        },
+        "error": {
+            "cannot_connect": "Kan ikke oprette forbindelse til MySQL Databasen. Tjek dine input og prøv igen.",
+            "no_data": "Kan ikke hente data fra databasen. Eksisterer tabellen?"
+        },
+        "step": {
+            "user": {
+                "description": "Opret forbindelse til Meteobridge SQL",
+                "title": "Meteobridge SQL",
+                "data": {
+                    "mac": "Meteobridge MAC adresse",
+                    "host": "MySQL Host",
+                    "port": "MySQL Port",
+                    "username": "MySQL Bruger",
+                    "password": "MySQL Kodeord",
+                    "database": "Database navn"
+                }
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "mac": "Meteobridge MAC adresse",
+                    "host": "MySQL Host",
+                    "port": "MySQL Port",
+                    "username": "MySQL Bruger",
+                    "password": "MySQL Kodeord",
+                    "database": "Database navn"
+                }
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "wind_cardinal": {
+                "state": {
+                    "N": "N",
+                    "NNE": "NNØ",
+                    "NE": "NØ",
+                    "ENE": "ØNØ",
+                    "E": "Ø",
+                    "ESE": "ØSØ",
+                    "SE": "SØ",
+                    "SSE": "SSØ",
+                    "S": "S",
+                    "SSW": "SSV",
+                    "SW": "SV",
+                    "WSW": "VSV",
+                    "W": "V",
+                    "WNW": "VNV",
+                    "NW": "NV",
+                    "NNW": "NNV"
+                }
+            },
+            "pressure_trend": {
+                "state": {
+                    "falling": "Falder",
+                    "rising": "Stiger",
+                    "steady": "Stabil"
+                }
+            },
+            "beaufort": {
+                "state": {
+                    "calm": "Stille",
+                    "light_air": "Næsten stille",
+                    "light_breeze": "Svag vind",
+                    "gentle_breeze": "Let vind",
+                    "moderate_breeze": "Jævn vind",
+                    "fresh_breeze": "Frisk vind",
+                    "strong_breeze": "Hård vind",
+                    "moderate_gale": "Stiv kuling",
+                    "fresh_gale": "Hård kuling",
+                    "strong_gale": "Stormende kuling",
+                    "storm": "Storm",
+                    "violent_storm": "Stærk storm",
+                    "hurricane": "Orkan"
+                }
+            },
+            "uv_description": {
+                "state": {
+                    "extreme": "Ekstrem høj",
+                    "very-high": "Meget høj",
+                    "high": "Høj",
+                    "moderate": "Moderat",
+                    "low": "Lav",
+                    "none": "Ingen data"
+                }
+            }
+        }
+    }
+}

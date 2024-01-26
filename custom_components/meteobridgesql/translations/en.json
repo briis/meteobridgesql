@@ -35,5 +35,63 @@
                 }
             }
         }
+    },
+    "entity": {
+        "sensor": {
+            "wind_cardinal": {
+                "state": {
+                    "N": "N",
+                    "NNE": "NNE",
+                    "NE": "NE",
+                    "ENE": "ENE",
+                    "E": "E",
+                    "ESE": "ESE",
+                    "SE": "SE",
+                    "SSE": "SSE",
+                    "S": "S",
+                    "SSW": "SSW",
+                    "SW": "SW",
+                    "WSW": "WSW",
+                    "W": "W",
+                    "WNW": "WNW",
+                    "NW": "NW",
+                    "NNW": "NNW"
+                }
+            },
+            "pressure_trend": {
+                "state": {
+                    "falling": "Falling",
+                    "rising": "Rising",
+                    "steady": "Steady"
+                }
+            },
+            "beaufort": {
+                "state": {
+                    "calm": "Calm",
+                    "light_air": "Light air",
+                    "light_breeze": "Light breeze",
+                    "gentle_breeze": "Gentle breeze",
+                    "moderate_breeze": "Moderate breeze",
+                    "fresh_breeze": "Fresh breeze",
+                    "strong_breeze": "Strong breeze",
+                    "moderate_gale": "Moderate Gale",
+                    "fresh_gale": "Fresh Gale",
+                    "strong_gale": "Strong Gale",
+                    "storm": "Storm",
+                    "violent_storm": "Violent Storm",
+                    "hurricane": "Hurricane"
+                }
+            },
+            "uv_description": {
+                "state": {
+                    "extreme": "Extreme",
+                    "very-high": "Very High",
+                    "high": "High",
+                    "moderate": "Moderate",
+                    "low": "Low",
+                    "none": "None"
+                }
+            }
+        }
     }
 }
