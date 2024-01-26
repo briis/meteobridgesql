@@ -8,6 +8,7 @@ ATTR_MIN_TEMP_TODAY = "min_temperature_today"
 ATTR_PRESSURE_TREND = "pressure_trend"
 ATTR_TEMP_15_MIN = "temperature_15_min_ago"
 
+CONCENTRATION_GRAMS_PER_CUBIC_METER = "g/m³"
 CONF_DATABASE = "database"
 
 DEFAULT_PORT = 3306

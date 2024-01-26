@@ -20,6 +20,7 @@ from homeassistant.const import (
     DEGREE,
     PERCENTAGE,
     UnitOfIrradiance,
+    UnitOfLength,
     UnitOfPrecipitationDepth,
     UnitOfPressure,
     UnitOfSpeed,
@@ -45,6 +46,7 @@ from .const import (
     ATTR_MAX_UV_TODAY,
     ATTR_PRESSURE_TREND,
     ATTR_TEMP_15_MIN,
+    CONCENTRATION_GRAMS_PER_CUBIC_METER,
     DOMAIN,
     MANUFACTURER
 )
@@ -56,10 +58,24 @@ class MeteobridgeSQLEntityDescription(SensorEntityDescription):
 
 SENSOR_TYPES: tuple[MeteobridgeSQLEntityDescription, ...] = (
     MeteobridgeSQLEntityDescription(
+        key="absolute_humidity",
+        name="Absolute Humidity",
+        native_unit_of_measurement=CONCENTRATION_GRAMS_PER_CUBIC_METER,
+        state_class=SensorStateClass.MEASUREMENT,
+        suggested_display_precision=0,
+        icon="mdi:water",
+    ),
+    MeteobridgeSQLEntityDescription(
         key="beaufort",
         name="Beaufort",
         icon="mdi:windsock",
         state_class=SensorStateClass.MEASUREMENT,
+    ),
+    MeteobridgeSQLEntityDescription(
+        key="beaufort_description",
+        name="Beaufort Description",
+        icon="mdi:windsock",
+        translation_key="beaufort",
     ),
     MeteobridgeSQLEntityDescription(
         key="dewpoint",
@@ -74,6 +90,14 @@ SENSOR_TYPES: tuple[MeteobridgeSQLEntityDescription, ...] = (
         native_unit_of_measurement=UnitOfTemperature.CELSIUS,
         device_class=SensorDeviceClass.TEMPERATURE,
         state_class=SensorStateClass.MEASUREMENT,
+    ),
+    MeteobridgeSQLEntityDescription(
+        key="freezing_altitude",
+        name="Freezing Altitude",
+        native_unit_of_measurement=UnitOfLength.METERS,
+        device_class=SensorDeviceClass.DISTANCE,
+        state_class=SensorStateClass.MEASUREMENT,
+        suggested_display_precision=0,
     ),
     MeteobridgeSQLEntityDescription(
         key="heatindex",
@@ -169,6 +193,20 @@ SENSOR_TYPES: tuple[MeteobridgeSQLEntityDescription, ...] = (
         state_class=SensorStateClass.MEASUREMENT,
         icon="mdi:sun-wireless",
         suggested_display_precision=1,
+    ),
+    MeteobridgeSQLEntityDescription(
+        key="uv_description",
+        name="UV Description",
+        icon="mdi:sun-wireless",
+        translation_key="uv_description",
+    ),
+    MeteobridgeSQLEntityDescription(
+        key="visibility",
+        name="Visibility",
+        native_unit_of_measurement=UnitOfLength.KILOMETERS,
+        device_class=SensorDeviceClass.DISTANCE,
+        state_class=SensorStateClass.MEASUREMENT,
+        suggested_display_precision=0,
     ),
     MeteobridgeSQLEntityDescription(
         key="windchill",
