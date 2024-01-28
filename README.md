@@ -10,7 +10,13 @@ Home Assistant integration for adding Weather Data from Meteobridge stored in a 
 
 <a href="https://www.buymeacoffee.com/briis" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 40px !important;width: 145px !important;" ></a>
 
-## DOCUMENTAION NEEDS UPDATING
+## Prerequisites
+
+Describe how to setup the MySQL Database and push data in to that from a Meteobridge logger.
+
+## Installation
+
+Describe how install through HACS or Manual
 
 ## Configuration
 
@@ -25,6 +31,11 @@ To add Meteobridge SQL to your installation, do the following:
 - Click on SUBMIT to save your data.
 
 You can configure more than 1 instance of the Integration by using a different Station ID.
+
+## Sensor Description
+
+Describe the different sensors that are available after setup
+
 
 ***
 
