@@ -85,6 +85,15 @@ SENSOR_TYPES: tuple[MeteobridgeSQLEntityDescription, ...] = (
         translation_key="beaufort",
     ),
     MeteobridgeSQLEntityDescription(
+        key="cloud_base",
+        name="Cloud Base",
+        native_unit_of_measurement=UnitOfLength.METERS,
+        device_class=SensorDeviceClass.DISTANCE,
+        state_class=SensorStateClass.MEASUREMENT,
+        icon="mdi:arrow-expand-vertical",
+        suggested_display_precision=0,
+    ),
+    MeteobridgeSQLEntityDescription(
         key="dewpoint",
         name="Dewpoint",
         native_unit_of_measurement=UnitOfTemperature.CELSIUS,
