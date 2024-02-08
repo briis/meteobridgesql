@@ -71,6 +71,7 @@ SENSOR_TYPES: tuple[MeteobridgeSQLEntityDescription, ...] = (
         icon="mdi:air-filter",
         device_class=SensorDeviceClass.AQI,
         state_class=SensorStateClass.MEASUREMENT,
+        suggested_display_precision=1,
     ),
     MeteobridgeSQLEntityDescription(
         key="beaufort",
