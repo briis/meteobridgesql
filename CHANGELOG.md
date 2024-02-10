@@ -1,4 +1,4 @@
-## Release 1.0.6
+## Release 1.1.0
 
 Date: `2024-02-10`
 
@@ -6,7 +6,8 @@ Date: `2024-02-10`
 
 - Added Condition Icon.
 - Added Weather Forecast Description
-- Bumped pymeteobridgesql to 1.0.7
+- Bumped pymeteobridgesql to 1.1.0
+- Added `weather` entity, using visual crossing as source
 
 
 ## Release 1.0.5
