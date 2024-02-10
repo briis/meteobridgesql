@@ -7,6 +7,8 @@ from types import MappingProxyType
 from typing import Any, Self
 
 from pymeteobridgesql import (
+    ForecastDaily,
+    ForecastHourly,
     MeteobridgeSQLDatabaseConnectionError,
     MeteobridgeSQLDataError,
     MeteobridgeSQL,
@@ -31,7 +33,7 @@ from .const import (
     DOMAIN,
 )
 
-PLATFORMS = [Platform.SENSOR]
+PLATFORMS = [Platform.SENSOR, Platform.WEATHER]
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -53,6 +55,7 @@ async def async_setup_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> b
 
 async def async_unload_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> bool:
     """Unload a config entry."""
+
 
     unload_ok = await hass.config_entries.async_unload_platforms(
         config_entry, PLATFORMS
@@ -100,6 +103,8 @@ class MeteobridgeSQLData:
         self._config = config
         self._weather_data: MeteobridgeSQL
         self.sensor_data: RealtimeData
+        self.daily_forecast: ForecastDaily
+        self.hourly_forecast: ForecastHourly
 
     def initialize_data(self) -> bool:
         """Establish connection to API."""
@@ -114,6 +119,8 @@ class MeteobridgeSQLData:
         try:
             await self._weather_data.async_init()
             self.sensor_data: RealtimeData = await self._weather_data.async_get_realtime_data(self._config[CONF_MAC])
+            self.daily_forecast = await self._weather_data.async_get_forecast(False)
+            self.hourly_forecast= await self._weather_data.async_get_forecast(True)
         except MeteobridgeSQLDatabaseConnectionError as unauthorized:
             _LOGGER.debug(unauthorized)
             raise Unauthorized from unauthorized

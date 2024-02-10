@@ -95,6 +95,16 @@ SENSOR_TYPES: tuple[MeteobridgeSQLEntityDescription, ...] = (
         suggested_display_precision=0,
     ),
     MeteobridgeSQLEntityDescription(
+        key="icon",
+        name="Condition",
+        icon="mdi:simple-icons",
+    ),
+    MeteobridgeSQLEntityDescription(
+        key="description",
+        name="Description",
+        icon="mdi:image-text",
+    ),
+    MeteobridgeSQLEntityDescription(
         key="dewpoint",
         name="Dewpoint",
         native_unit_of_measurement=UnitOfTemperature.CELSIUS,
