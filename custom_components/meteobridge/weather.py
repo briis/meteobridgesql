@@ -106,7 +106,7 @@ class MeteobridgeSQLWeather(SingleCoordinatorWeatherEntity[MeteobridgeSQLDataUpd
         self._hourly = hourly
         self._attr_entity_registry_enabled_default = not hourly
         self._attr_device_info = DeviceInfo(
-            name="Forecast",
+            name="Weather Entity",
             entry_type=DeviceEntryType.SERVICE,
             identifiers={(DOMAIN,)},  # type: ignore[arg-type]
             manufacturer=WEATHER_MANUFATURER,

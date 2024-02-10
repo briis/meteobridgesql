@@ -103,8 +103,8 @@ class MeteobridgeSQLData:
         self._config = config
         self._weather_data: MeteobridgeSQL
         self.sensor_data: RealtimeData
-        self.daily_forecast: ForecastDaily
-        self.hourly_forecast: ForecastHourly
+        self.daily_forecast: list[ForecastDaily]
+        self.hourly_forecast: list[ForecastHourly]
 
     def initialize_data(self) -> bool:
         """Establish connection to API."""
