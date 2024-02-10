@@ -1,5 +1,5 @@
 {
-    "domain": "meteobridgesql",
+    "domain": "meteobridge",
     "name": "Meteobridge SQL",
     "codeowners": [
         "@briis"

@@ -13,7 +13,7 @@ CONCENTRATION_GRAMS_PER_CUBIC_METER = "g/m³"
 CONF_DATABASE = "database"
 
 DEFAULT_PORT = 3306
-DOMAIN = "meteobridgesql"
+DOMAIN = "meteobridge"
 
 MANUFACTURER = "Meteobridge"
 
