@@ -4,7 +4,7 @@ from __future__ import annotations
 import logging
 
 from types import MappingProxyType
-from typing import TYPE_CHECKING, Any
+from typing import Any
 
 from homeassistant.components.weather import (
     DOMAIN as WEATHER_DOMAIN,
@@ -15,7 +15,6 @@ from homeassistant.components.weather import (
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import (
     CONF_MAC,
-    CONF_NAME,
     UnitOfPrecipitationDepth,
     UnitOfPressure,
     UnitOfSpeed,
