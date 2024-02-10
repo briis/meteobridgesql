@@ -1,6 +1,6 @@
 ## Release 1.1.1
 
-Date: `NOT RELEASED`
+Date: `2024-02-10`
 
 ### Changes
 
