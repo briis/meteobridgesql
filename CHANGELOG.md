@@ -1,3 +1,14 @@
+## Release 1.1.1
+
+Date: `NOT RELEASED`
+
+### Changes
+
+- Renamed the Integration to `meteobridge`. This will conflict another of my Integrations, but this no longer maintained.
+- Ensure there is always 48 hours of Hourly Forecast data
+- Bumped pymeteobridgesql to 1.1.2
+
+
 ## Release 1.1.0
 
 Date: `2024-02-10`
