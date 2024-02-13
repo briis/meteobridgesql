@@ -100,6 +100,11 @@ SENSOR_TYPES: tuple[MeteobridgeSQLEntityDescription, ...] = (
         icon="mdi:simple-icons",
     ),
     MeteobridgeSQLEntityDescription(
+        key="conditions",
+        name="Condition Text",
+        icon="mdi:simple-icons",
+    ),
+    MeteobridgeSQLEntityDescription(
         key="description",
         name="Description",
         icon="mdi:image-text",
