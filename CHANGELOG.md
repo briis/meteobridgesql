@@ -4,7 +4,7 @@ Date: `2024-02-13`
 
 ### Changes
 
-- Added new sensor `Conditions`.
+- Added new sensor `Condition Text`
 
 
 ## Release 1.1.1
