@@ -1,3 +1,11 @@
+## Release 1.1.4
+
+Date: `2024-04-28`
+
+### Changes
+
+- Bumped pymeteobridgesql to 1.1.7 to support new database fields
+
 ## Release 1.1.2
 
 Date: `2024-02-13`
