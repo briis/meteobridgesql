@@ -169,6 +169,7 @@ class MeteobridgeSQLWeather(SingleCoordinatorWeatherEntity[MeteobridgeSQLDataUpd
                 native_temperature = item.temperature
                 native_apparent_temperature = item.apparent_temperature
                 wind_bearing = item.wind_bearing
+                native_visibility = item.visibility,
                 native_wind_gust_speed = item.wind_gust
                 native_wind_speed = item.wind_speed
                 uv_index = item.uv_index
@@ -183,6 +184,7 @@ class MeteobridgeSQLWeather(SingleCoordinatorWeatherEntity[MeteobridgeSQLDataUpd
                     "native_temperature": native_temperature,
                     "native_apparent_temperature": native_apparent_temperature,
                     "wind_bearing": wind_bearing,
+                    "native_visibility": native_visibility,
                     "native_wind_gust_speed": native_wind_gust_speed,
                     "native_wind_speed": native_wind_speed,
                     "uv_index": uv_index,
