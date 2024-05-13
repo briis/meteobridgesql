@@ -1,9 +1,11 @@
+
 ## Release 1.1.6
 
 Date: `2024-05-05`
 
 ### Changes
 
+* Added `visibility` to Minute Data
 - Bumped pymeteobridgesql to 1.2.2 to support new database fields
 - Added visibility to Hourly Forecast
 
