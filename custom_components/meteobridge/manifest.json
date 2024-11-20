@@ -11,7 +11,7 @@
     "issue_tracker": "https://github.com/briis/meteobridgesql/issues",
     "requirements": [
         "pymeteobridgesql==1.2.2",
-        "mysql-connector-python==8.3.0"
+        "mysql-connector-python==9.1.0"
     ],
-    "version": "1.1.6"
+    "version": "1.1.7"
 }
