@@ -1,4 +1,12 @@
 
+## Release 1.1.8
+
+Date: `2025-01-11`
+
+### Changes
+
+* Bumped development environment to Python 3.13
+
 ## Release 1.1.6
 
 Date: `2024-05-05`
