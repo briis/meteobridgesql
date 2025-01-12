@@ -1,4 +1,5 @@
 """Config flow to configure WeatherFlow Forecast component."""
+
 from __future__ import annotations
 
 import logging
@@ -13,11 +14,16 @@ from homeassistant.const import (
     CONF_USERNAME,
 )
 from homeassistant.core import callback
-from homeassistant.data_entry_flow import FlowResult
-from pymeteobridgesql import MeteobridgeSQL, MeteobridgeSQLDatabaseConnectionError, MeteobridgeSQLDataError, StationData
-from .const import (CONF_DATABASE, DEFAULT_PORT, DOMAIN)
+from pymeteobridgesql import (
+    MeteobridgeSQL,
+    MeteobridgeSQLDatabaseConnectionError,
+    MeteobridgeSQLDataError,
+    StationData,
+)
+from .const import CONF_DATABASE, DEFAULT_PORT, DOMAIN
 
 _LOGGER = logging.getLogger(__name__)
+
 
 class WeatherFlowForecastHandler(config_entries.ConfigFlow, domain=DOMAIN):
     """Config Flow for WeatherFlow Forecast."""
@@ -26,11 +32,13 @@ class WeatherFlowForecastHandler(config_entries.ConfigFlow, domain=DOMAIN):
 
     @staticmethod
     @callback
-    def async_get_options_flow(config_entry: config_entries.ConfigEntry) -> config_entries.OptionsFlow:
+    def async_get_options_flow(
+        config_entry: config_entries.ConfigEntry,
+    ) -> config_entries.OptionsFlow:
         """Get the options flow for WeatherFlow Forecast."""
         return WeatherFlowForecastOptionsFlowHandler(config_entry)
 
-    async def async_step_user(self, user_input: dict[str, Any] | None = None) -> FlowResult:
+    async def async_step_user(self, user_input: dict[str, Any] | None = None):
         """Handle a flow initialized by the user."""
 
         if user_input is None:
@@ -39,9 +47,16 @@ class WeatherFlowForecastHandler(config_entries.ConfigFlow, domain=DOMAIN):
         errors = {}
 
         try:
-            meteobridge = MeteobridgeSQL(host=user_input[CONF_HOST],user=user_input[CONF_USERNAME],password=user_input[CONF_PASSWORD], database=user_input[CONF_DATABASE])
+            meteobridge = MeteobridgeSQL(
+                host=user_input[CONF_HOST],
+                user=user_input[CONF_USERNAME],
+                password=user_input[CONF_PASSWORD],
+                database=user_input[CONF_DATABASE],
+            )
             await meteobridge.async_init()
-            station_data: StationData = await meteobridge.async_get_station_data(user_input[CONF_MAC])
+            station_data: StationData = await meteobridge.async_get_station_data(
+                user_input[CONF_MAC]
+            )
         except MeteobridgeSQLDatabaseConnectionError as error:
             _LOGGER.error("Error connecting to MySQL Database: %s", error)
             errors["base"] = "cannot_connect"
@@ -63,7 +78,7 @@ class WeatherFlowForecastHandler(config_entries.ConfigFlow, domain=DOMAIN):
                 CONF_USERNAME: user_input[CONF_USERNAME],
                 CONF_PASSWORD: user_input[CONF_PASSWORD],
                 CONF_DATABASE: user_input[CONF_DATABASE],
-            }
+            },
         )
 
     async def _show_setup_form(self, errors=None):
@@ -81,8 +96,8 @@ class WeatherFlowForecastHandler(config_entries.ConfigFlow, domain=DOMAIN):
                 }
             ),
             errors=errors or {},
-
         )
+
 
 class WeatherFlowForecastOptionsFlowHandler(config_entries.OptionsFlow):
     """Options Flow for WeatherFlow Forecast component."""
@@ -91,7 +106,7 @@ class WeatherFlowForecastOptionsFlowHandler(config_entries.OptionsFlow):
         """Initialize the WeatherFlow Forecast Options Flows."""
         self._config_entry = config_entry
 
-    async def async_step_init(self, user_input: dict[str, Any] | None = None) -> FlowResult:
+    async def async_step_init(self, user_input: dict[str, Any] | None = None):
         """Configure Options for WeatherFlow Forecast."""
 
         if user_input is not None:
@@ -101,12 +116,28 @@ class WeatherFlowForecastOptionsFlowHandler(config_entries.OptionsFlow):
             step_id="init",
             data_schema=vol.Schema(
                 {
-                    vol.Required(CONF_MAC, default=self._config_entry.data.get(CONF_MAC, "")): str,
-                    vol.Required(CONF_HOST, default=self._config_entry.data.get(CONF_HOST, "")): str,
-                    vol.Required(CONF_PORT, default=self._config_entry.data.get(CONF_PORT, DEFAULT_PORT)): int,
-                    vol.Required(CONF_USERNAME, default=self._config_entry.data.get(CONF_USERNAME, "")): str,
-                    vol.Required(CONF_PASSWORD, default=self._config_entry.data.get(CONF_PASSWORD, "")): str,
-                    vol.Required(CONF_DATABASE, default=self._config_entry.data.get(CONF_DATABASE, "")): str,
+                    vol.Required(
+                        CONF_MAC, default=self._config_entry.data.get(CONF_MAC, "")
+                    ): str,
+                    vol.Required(
+                        CONF_HOST, default=self._config_entry.data.get(CONF_HOST, "")
+                    ): str,
+                    vol.Required(
+                        CONF_PORT,
+                        default=self._config_entry.data.get(CONF_PORT, DEFAULT_PORT),
+                    ): int,
+                    vol.Required(
+                        CONF_USERNAME,
+                        default=self._config_entry.data.get(CONF_USERNAME, ""),
+                    ): str,
+                    vol.Required(
+                        CONF_PASSWORD,
+                        default=self._config_entry.data.get(CONF_PASSWORD, ""),
+                    ): str,
+                    vol.Required(
+                        CONF_DATABASE,
+                        default=self._config_entry.data.get(CONF_DATABASE, ""),
+                    ): str,
                 }
-            )
+            ),
         )
