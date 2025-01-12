@@ -1,4 +1,5 @@
 """Meteobridge SQL Platform."""
+
 from __future__ import annotations
 
 from datetime import timedelta
@@ -15,8 +16,8 @@ from pymeteobridgesql import (
     RealtimeData,
 )
 
-from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import  (
+from homeassistant.config_entries import ConfigEntry, ConfigEntryState
+from homeassistant.const import (
     CONF_HOST,
     CONF_MAC,
     CONF_PASSWORD,
@@ -25,7 +26,11 @@ from homeassistant.const import  (
     Platform,
 )
 from homeassistant.core import HomeAssistant
-from homeassistant.exceptions import HomeAssistantError, ConfigEntryNotReady, Unauthorized
+from homeassistant.exceptions import (
+    HomeAssistantError,
+    ConfigEntryNotReady,
+    Unauthorized,
+)
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 
 from .const import (
@@ -37,11 +42,15 @@ PLATFORMS = [Platform.SENSOR, Platform.WEATHER]
 
 _LOGGER = logging.getLogger(__name__)
 
+
 async def async_setup_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> bool:
     """Set up MeteobridgeSQL as config entry."""
 
     coordinator = MeteobridgeSQLDataUpdateCoordinator(hass, config_entry)
-    await coordinator.async_config_entry_first_refresh()
+    if ConfigEntryState == ConfigEntryState.SETUP_IN_PROGRESS:
+        await coordinator.async_config_entry_first_refresh()
+    else:
+        await coordinator.async_refresh()
 
     hass.data.setdefault(DOMAIN, {})
     hass.data[DOMAIN][config_entry.entry_id] = coordinator
@@ -56,7 +65,6 @@ async def async_setup_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> b
 async def async_unload_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> bool:
     """Unload a config entry."""
 
-
     unload_ok = await hass.config_entries.async_unload_platforms(
         config_entry, PLATFORMS
     )
@@ -65,27 +73,35 @@ async def async_unload_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> 
 
     return unload_ok
 
+
 async def async_update_entry(hass: HomeAssistant, config_entry: ConfigEntry):
     """Reload MeteobridgeSQL component when options changed."""
     await hass.config_entries.async_reload(config_entry.entry_id)
 
+
 class CannotConnect(HomeAssistantError):
     """Unable to connect to the web site."""
 
-class MeteobridgeSQLDataUpdateCoordinator(DataUpdateCoordinator["MeteobridgeSQLData"]):
+
+class MeteobridgeSQLDataUpdateCoordinator(DataUpdateCoordinator):
     """Class to manage fetching WeatherFlow data."""
 
     def __init__(self, hass: HomeAssistant, config_entry: ConfigEntry) -> None:
         """Initialize global MeteobridgeSQL data updater."""
-        self.weather = MeteobridgeSQLData(hass, config_entry.data)
+        self.weather = MeteobridgeSQLData(hass, config_entry)
         self.weather.initialize_data()
         self.hass = hass
         self.config_entry = config_entry
 
         update_interval = timedelta(minutes=1)
 
-        super().__init__(hass, _LOGGER, name=DOMAIN, update_interval=update_interval)
-
+        super().__init__(
+            hass,
+            _LOGGER,
+            name=DOMAIN,
+            update_interval=update_interval,
+            config_entry=config_entry,
+        )
 
     async def _async_update_data(self) -> MeteobridgeSQLData:
         """Fetch data from MeteobridgeSQL."""
@@ -94,13 +110,14 @@ class MeteobridgeSQLDataUpdateCoordinator(DataUpdateCoordinator["MeteobridgeSQLD
         except Exception as err:
             raise UpdateFailed(f"Update failed: {err}") from err
 
+
 class MeteobridgeSQLData:
     """Keep data for MeteobridgeSQL entity data."""
 
-    def __init__(self, hass: HomeAssistant, config: MappingProxyType[str, Any]) -> None:
+    def __init__(self, hass: HomeAssistant, config: ConfigEntry) -> None:
         """Initialise the weather entity data."""
         self.hass = hass
-        self._config = config
+        self._config = config.data
         self._weather_data: MeteobridgeSQL
         self.sensor_data: RealtimeData
         self.daily_forecast: list[ForecastDaily]
@@ -109,7 +126,13 @@ class MeteobridgeSQLData:
     def initialize_data(self) -> bool:
         """Establish connection to API."""
 
-        self._weather_data = MeteobridgeSQL(self._config[CONF_HOST], self._config[CONF_USERNAME], self._config[CONF_PASSWORD], self._config[CONF_DATABASE], self._config[CONF_PORT])
+        self._weather_data = MeteobridgeSQL(
+            self._config[CONF_HOST],
+            self._config[CONF_USERNAME],
+            self._config[CONF_PASSWORD],
+            self._config[CONF_DATABASE],
+            self._config[CONF_PORT],
+        )
 
         return True
 
@@ -118,9 +141,11 @@ class MeteobridgeSQLData:
 
         try:
             await self._weather_data.async_init()
-            self.sensor_data: RealtimeData = await self._weather_data.async_get_realtime_data(self._config[CONF_MAC])
+            self.sensor_data: RealtimeData = (
+                await self._weather_data.async_get_realtime_data(self._config[CONF_MAC])
+            )
             self.daily_forecast = await self._weather_data.async_get_forecast(False)
-            self.hourly_forecast= await self._weather_data.async_get_forecast(True)
+            self.hourly_forecast = await self._weather_data.async_get_forecast(True)
         except MeteobridgeSQLDatabaseConnectionError as unauthorized:
             _LOGGER.debug(unauthorized)
             raise Unauthorized from unauthorized

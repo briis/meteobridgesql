@@ -14,12 +14,14 @@ from homeassistant.const import (
     CONF_USERNAME,
 )
 from homeassistant.core import callback
+from homeassistant.helpers.event import async_call_later
 from pymeteobridgesql import (
     MeteobridgeSQL,
     MeteobridgeSQLDatabaseConnectionError,
     MeteobridgeSQLDataError,
     StationData,
 )
+from . import async_setup_entry, async_unload_entry
 from .const import CONF_DATABASE, DEFAULT_PORT, DOMAIN
 
 _LOGGER = logging.getLogger(__name__)
@@ -106,10 +108,20 @@ class MeteobridgeSQLOptionsFlowHandler(config_entries.OptionsFlow):
         """Initialize the WeatherFlow Forecast Options Flows."""
         self._config_entry = config_entry
 
+    async def _do_update(
+        self,
+        *args,
+        **kwargs,  # pylint: disable=unused-argument
+    ) -> None:
+        """Update after settings change."""
+        await async_unload_entry(self.hass, self.config_entry)
+        await async_setup_entry(self.hass, self.config_entry)
+
     async def async_step_init(self, user_input: dict[str, Any] | None = None):
         """Configure Options for WeatherFlow Forecast."""
 
         if user_input is not None:
+            async_call_later(self.hass, 2, self._do_update)
             return self.async_create_entry(title="", data=user_input)
 
         return self.async_show_form(
