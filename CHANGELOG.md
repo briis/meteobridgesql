@@ -1,4 +1,14 @@
 
+## Release 1.1.9
+
+Date: `2025-01-11`
+
+### Changes
+
+* Fixed errors in config flow, causing blocking calls errors.
+* Fixed missing AQI value if PM2.5 was 0
+* Bumped `pymeteobridgesql` to 1.3.2
+
 ## Release 1.1.8
 
 Date: `2025-01-11`
