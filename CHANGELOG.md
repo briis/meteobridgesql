@@ -1,10 +1,20 @@
 
+## Release 1.1.11
+
+Date: `2025-01-11`
+
+### Changes
+
+* Fixing Blocking Errors in Home Assistant 2025.1
+* Bumped `pymeteobridgesql` to 1.3.3
+
 ## Release 1.1.10
 
 Date: `2025-01-11`
 
 ### Changes
 
+* Fixing Blocking Errors in Home Assistant 2025.1
 * Fixed errors in config flow.
 * Added Startup LOGGER Banner. Thanks to MTrab for the code.
 
