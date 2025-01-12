@@ -161,3 +161,4 @@ cython_debug/
 
 config/*
 .DS_Store
+custom_components/meteobridge/config_mtrab.py
