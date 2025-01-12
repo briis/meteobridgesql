@@ -1,4 +1,12 @@
 
+## Release 1.1.10
+
+Date: `2025-01-11`
+
+### Changes
+
+* Fixed errors in config flow.
+
 ## Release 1.1.9
 
 Date: `2025-01-11`
