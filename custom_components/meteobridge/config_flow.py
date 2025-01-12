@@ -31,6 +31,7 @@ class MeteobridgeSQLConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     """Config Flow for MeteobridgeSQL."""
 
     VERSION = 1
+    CONNECTION_CLASS = config_entries.CONN_CLASS_CLOUD_POLL
 
     @staticmethod
     @callback
@@ -49,13 +50,14 @@ class MeteobridgeSQLConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         errors = {}
 
         try:
-            meteobridge = MeteobridgeSQL(
-                host=user_input[CONF_HOST],
-                user=user_input[CONF_USERNAME],
-                password=user_input[CONF_PASSWORD],
-                database=user_input[CONF_DATABASE],
+            meteobridge = await self.hass.async_add_executor_job(
+                lambda: MeteobridgeSQL(
+                    host=user_input[CONF_HOST],
+                    user=user_input[CONF_USERNAME],
+                    password=user_input[CONF_PASSWORD],
+                    database=user_input[CONF_DATABASE],
+                )
             )
-            await meteobridge.async_init()
             station_data: StationData = await meteobridge.async_get_station_data(
                 user_input[CONF_MAC]
             )

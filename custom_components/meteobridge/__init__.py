@@ -144,7 +144,7 @@ class MeteobridgeSQLData:
         """Fetch data from API - (current weather and forecast)."""
 
         try:
-            await self._weather_data.async_init()
+            await self.hass.async_add_executor_job(self._weather_data.initialize)
             self.sensor_data: RealtimeData = (
                 await self._weather_data.async_get_realtime_data(self._config[CONF_MAC])
             )
