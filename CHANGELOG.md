@@ -6,6 +6,7 @@ Date: `2025-01-11`
 ### Changes
 
 * Fixed errors in config flow.
+* Added Startup LOGGER Banner. Thanks to MTrab for the code.
 
 ## Release 1.1.9
 

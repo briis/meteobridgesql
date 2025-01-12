@@ -32,10 +32,12 @@ from homeassistant.exceptions import (
     Unauthorized,
 )
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
+from homeassistant.loader import async_get_integration
 
 from .const import (
     CONF_DATABASE,
     DOMAIN,
+    STARTUP,
 )
 
 PLATFORMS = [Platform.SENSOR, Platform.WEATHER]
@@ -45,6 +47,9 @@ _LOGGER = logging.getLogger(__name__)
 
 async def async_setup_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> bool:
     """Set up MeteobridgeSQL as config entry."""
+    hass.data.setdefault(DOMAIN, {})
+    integration = await async_get_integration(hass, DOMAIN)
+    _LOGGER.info(STARTUP, integration.version)
 
     coordinator = MeteobridgeSQLDataUpdateCoordinator(hass, config_entry)
     if ConfigEntryState == ConfigEntryState.SETUP_IN_PROGRESS:
