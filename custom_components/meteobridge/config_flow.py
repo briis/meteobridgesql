@@ -25,8 +25,8 @@ from .const import CONF_DATABASE, DEFAULT_PORT, DOMAIN
 _LOGGER = logging.getLogger(__name__)
 
 
-class WeatherFlowForecastHandler(config_entries.ConfigFlow, domain=DOMAIN):
-    """Config Flow for WeatherFlow Forecast."""
+class MeteobridgeSQLConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
+    """Config Flow for MeteobridgeSQL."""
 
     VERSION = 1
 
@@ -36,7 +36,7 @@ class WeatherFlowForecastHandler(config_entries.ConfigFlow, domain=DOMAIN):
         config_entry: config_entries.ConfigEntry,
     ) -> config_entries.OptionsFlow:
         """Get the options flow for WeatherFlow Forecast."""
-        return WeatherFlowForecastOptionsFlowHandler(config_entry)
+        return MeteobridgeSQLOptionsFlowHandler(config_entry)
 
     async def async_step_user(self, user_input: dict[str, Any] | None = None):
         """Handle a flow initialized by the user."""
@@ -99,8 +99,8 @@ class WeatherFlowForecastHandler(config_entries.ConfigFlow, domain=DOMAIN):
         )
 
 
-class WeatherFlowForecastOptionsFlowHandler(config_entries.OptionsFlow):
-    """Options Flow for WeatherFlow Forecast component."""
+class MeteobridgeSQLOptionsFlowHandler(config_entries.OptionsFlow):
+    """Options Flow forMeteobridgeSQL."""
 
     def __init__(self, config_entry: config_entries.ConfigEntry) -> None:
         """Initialize the WeatherFlow Forecast Options Flows."""
