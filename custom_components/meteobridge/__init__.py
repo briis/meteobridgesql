@@ -4,8 +4,7 @@ from __future__ import annotations
 
 from datetime import timedelta
 import logging
-from types import MappingProxyType
-from typing import Any, Self
+from typing import Self
 
 from pymeteobridgesql import (
     ForecastDaily,
