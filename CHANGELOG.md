@@ -1,4 +1,12 @@
 
+## Release 1.1.9
+
+Date: `2025-01-12`
+
+### Changes
+
+* Fixing Blocking Errors in Config Flow
+
 ## Release 1.1.8
 
 Date: `2025-01-11`
