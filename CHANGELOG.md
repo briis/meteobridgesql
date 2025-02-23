@@ -12,6 +12,8 @@ Date: `2025-01-11`
 
 These fields are currently not exposed in the Home Assistant Integration, but will be later. This is a hotfix to make sure the integration keeps running with the new fields added to the database and this requires 1.4.0 of `pymeteobridgesql`
 
+**NOTE** If these two fields are not added to the Realtime table, you do not need to update to this version.
+
 ## Release 1.1.11
 
 Date: `2025-01-11`
