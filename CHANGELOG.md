@@ -1,7 +1,7 @@
 
-## Release 1.1.13
+## Release 1.2.0
 
-Date: `2025-01-11`
+Date: `2025-02-23`
 
 ### Changes
 
@@ -10,9 +10,9 @@ Date: `2025-01-11`
   `windbearingavg10` INT NULL DEFAULT 'NULL' ,
   `windbearingdavg` INT NULL DEFAULT 'NULL' ,
 
-These fields are currently not exposed in the Home Assistant Integration, but will be later. This is a hotfix to make sure the integration keeps running with the new fields added to the database and this requires 1.4.0 of `pymeteobridgesql`
+* Added two new Sensors, using the above new data fields.
 
-**NOTE** If these two fields are not added to the Realtime table, you do not need to update to this version.
+**NOTE** If these two fields are not added to the Realtime table, you cannot update to this version.
 
 ## Release 1.1.11
 
