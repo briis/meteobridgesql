@@ -22,7 +22,11 @@ from pymeteobridgesql import (
     StationData,
 )
 from . import async_setup_entry, async_unload_entry
-from .const import CONF_DATABASE, DEFAULT_PORT, DOMAIN
+from .const import (
+    CONF_DATABASE,
+    DEFAULT_PORT,
+    DOMAIN,
+)
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -48,19 +52,16 @@ class MeteobridgeSQLConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             return await self._show_setup_form(user_input)
 
         errors = {}
-
         try:
-            meteobridge = await self.hass.async_add_executor_job(
-                lambda: MeteobridgeSQL(
-                    host=user_input[CONF_HOST],
-                    user=user_input[CONF_USERNAME],
-                    password=user_input[CONF_PASSWORD],
-                    database=user_input[CONF_DATABASE],
-                )
+            meteobridge = MeteobridgeSQL(
+                host=user_input[CONF_HOST],
+                user=user_input[CONF_USERNAME],
+                password=user_input[CONF_PASSWORD],
+                database=user_input[CONF_DATABASE],
             )
-            station_data: StationData = await meteobridge.async_get_station_data(
-                user_input[CONF_MAC]
-            )
+            await self.hass.async_add_executor_job(meteobridge.initialize)
+            station_data: StationData = await meteobridge.async_get_station_data(user_input[CONF_MAC])
+
         except MeteobridgeSQLDatabaseConnectionError as error:
             _LOGGER.error("Error connecting to MySQL Database: %s", error)
             errors["base"] = "cannot_connect"
