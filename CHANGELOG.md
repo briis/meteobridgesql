@@ -1,4 +1,17 @@
 
+## Release 1.1.13
+
+Date: `2025-01-11`
+
+### Changes
+
+* Added two new fields to the realtime table. `windbearingavg10` and `windbearingdavg`. The two fields represent the last 10 minute average wind bearing and the daily average wind bearing. This is a breaking change as these fields need to be manually created in the table as follows:
+
+  `windbearingavg10` INT NULL DEFAULT 'NULL' ,
+  `windbearingdavg` INT NULL DEFAULT 'NULL' ,
+
+These fields are currently not exposed in the Home Assistant Integration, but will be later. This is a hotfix to make sure the integration keeps running with the new fields added to the database and this requires 1.4.0 of `pymeteobridgesql`
+
 ## Release 1.1.11
 
 Date: `2025-01-11`
