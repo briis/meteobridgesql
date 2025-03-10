@@ -4,4 +4,4 @@ pip>=24.1.1,<25.1
 ruff==0.9.6
 mysql-connector-python==9.2.0
 zlib_ng==0.5.1
-isal==1.7.1
+isal==1.7.2
