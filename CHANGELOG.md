@@ -1,4 +1,12 @@
 
+## Release 1.2.1
+
+Date: `2025-03-11`
+
+### Changes
+
+* Added Device Class WIND_DIRECTION to the relevant sensors.
+
 ## Release 1.2.0
 
 Date: `2025-02-23`
