@@ -51,7 +51,7 @@ from .const import (
     MANUFACTURER
 )
 
-@dataclass
+@dataclass(frozen=True)
 class MeteobridgeSQLEntityDescription(SensorEntityDescription):
     """Describes MeteobridgeSQL sensor entity."""
 
@@ -250,22 +250,19 @@ SENSOR_TYPES: tuple[MeteobridgeSQLEntityDescription, ...] = (
     MeteobridgeSQLEntityDescription(
         key="windbearing",
         name="Wind bearing",
-        native_unit_of_measurement=DEGREE,
-        state_class=SensorStateClass.MEASUREMENT,
+        device_class=SensorDeviceClass.WIND_DIRECTION,
         icon="mdi:compass",
     ),
     MeteobridgeSQLEntityDescription(
         key="windbearingavg10",
         name="Wind bearing avg. 10 min",
-        native_unit_of_measurement=DEGREE,
-        state_class=SensorStateClass.MEASUREMENT,
+        device_class=SensorDeviceClass.WIND_DIRECTION,
         icon="mdi:compass",
     ),
     MeteobridgeSQLEntityDescription(
         key="windbearingdavg",
         name="Wind bearing Day Average",
-        native_unit_of_measurement=DEGREE,
-        state_class=SensorStateClass.MEASUREMENT,
+        device_class=SensorDeviceClass.WIND_DIRECTION,
         icon="mdi:compass",
     ),
     MeteobridgeSQLEntityDescription(
