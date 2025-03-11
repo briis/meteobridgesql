@@ -251,18 +251,21 @@ SENSOR_TYPES: tuple[MeteobridgeSQLEntityDescription, ...] = (
         key="windbearing",
         name="Wind bearing",
         device_class=SensorDeviceClass.WIND_DIRECTION,
+        native_unit_of_measurement=DEGREE,
         icon="mdi:compass",
     ),
     MeteobridgeSQLEntityDescription(
         key="windbearingavg10",
         name="Wind bearing avg. 10 min",
         device_class=SensorDeviceClass.WIND_DIRECTION,
+        native_unit_of_measurement=DEGREE,
         icon="mdi:compass",
     ),
     MeteobridgeSQLEntityDescription(
         key="windbearingdavg",
         name="Wind bearing Day Average",
         device_class=SensorDeviceClass.WIND_DIRECTION,
+        native_unit_of_measurement=DEGREE,
         icon="mdi:compass",
     ),
     MeteobridgeSQLEntityDescription(
