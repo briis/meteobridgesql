@@ -1,4 +1,12 @@
 
+## Release 1.2.2
+
+Date: `2025-05-20`
+
+### Changes
+
+* Added Pressure Trend Value to Sensors.
+
 ## Release 1.2.1
 
 Date: `2025-03-11`
