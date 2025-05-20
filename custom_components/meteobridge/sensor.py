@@ -173,6 +173,14 @@ SENSOR_TYPES: tuple[MeteobridgeSQLEntityDescription, ...] = (
         icon="mdi:trending-up",
     ),
     MeteobridgeSQLEntityDescription(
+        key="pressuretrend",
+        name="Pressure Trend Value",
+        native_unit_of_measurement=UnitOfPressure.HPA,
+        device_class=SensorDeviceClass.ATMOSPHERIC_PRESSURE,
+        state_class=SensorStateClass.MEASUREMENT,
+        suggested_display_precision=1,
+    ),
+    MeteobridgeSQLEntityDescription(
         key="rainrate",
         name="Rain rate",
         native_unit_of_measurement=UnitOfVolumetricFlux.MILLIMETERS_PER_HOUR,
