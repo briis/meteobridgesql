@@ -1,4 +1,5 @@
 """Support forVisual Crossing weather service via MySQL services."""
+
 from __future__ import annotations
 
 import logging
@@ -37,31 +38,36 @@ from .const import (
 
 _LOGGER = logging.getLogger(__name__)
 
+
 async def async_setup_entry(
-        hass: HomeAssistant,
-        config_entry: ConfigEntry,
-        async_add_entities: AddEntitiesCallback,
+    hass: HomeAssistant,
+    config_entry: ConfigEntry,
+    async_add_entities: AddEntitiesCallback,
 ) -> None:
     """Add a weather entity from a config_entry."""
-    coordinator: MeteobridgeSQLDataUpdateCoordinator = hass.data[DOMAIN][config_entry.entry_id]
+    coordinator: MeteobridgeSQLDataUpdateCoordinator = hass.data[DOMAIN][
+        config_entry.entry_id
+    ]
     entity_registry = er.async_get(hass)
 
     name: str = f"{coordinator.data.sensor_data.mb_stationname} Weather"
     is_metric = hass.config.units is METRIC_SYSTEM
 
-    entities = [MeteobridgeSQLWeather(coordinator, config_entry.data,
-                                   False, name, is_metric)]
+    entities = [
+        MeteobridgeSQLWeather(coordinator, config_entry.data, False, name, is_metric)
+    ]
 
     # Add hourly entity to legacy config entries
     if entity_registry.async_get_entity_id(
-        WEATHER_DOMAIN,
-        DOMAIN,
-        _calculate_unique_id(config_entry.data, True)
+        WEATHER_DOMAIN, DOMAIN, _calculate_unique_id(config_entry.data, True)
     ):
         name = f"{name} hourly"
-        entities.append(MeteobridgeSQLWeather(coordinator, config_entry.data, True, name, is_metric))
+        entities.append(
+            MeteobridgeSQLWeather(coordinator, config_entry.data, True, name, is_metric)
+        )
 
     async_add_entities(entities)
+
 
 def _calculate_unique_id(config: MappingProxyType[str, Any], hourly: bool) -> str:
     """Calculate unique ID."""
@@ -72,12 +78,12 @@ def _calculate_unique_id(config: MappingProxyType[str, Any], hourly: bool) -> st
     return f"{config[CONF_MAC]}{name_appendix}"
 
 
-class MeteobridgeSQLWeather(SingleCoordinatorWeatherEntity[MeteobridgeSQLDataUpdateCoordinator]):
+class MeteobridgeSQLWeather(
+    SingleCoordinatorWeatherEntity[MeteobridgeSQLDataUpdateCoordinator]
+):
     """Implementation of a MeteobridgeSQL weather condition."""
 
-    _attr_attribution = (
-        ATTR_WEATHER_ATTRIBUTION
-    )
+    _attr_attribution = ATTR_WEATHER_ATTRIBUTION
     _attr_has_entity_name = True
     _attr_native_temperature_unit = UnitOfTemperature.CELSIUS
     _attr_native_precipitation_unit = UnitOfPrecipitationDepth.MILLIMETERS
@@ -88,12 +94,12 @@ class MeteobridgeSQLWeather(SingleCoordinatorWeatherEntity[MeteobridgeSQLDataUpd
     )
 
     def __init__(
-            self,
-            coordinator: MeteobridgeSQLDataUpdateCoordinator,
-            config: MappingProxyType[str, Any],
-            hourly: bool,
-            name: str,
-            is_metric: bool,
+        self,
+        coordinator: MeteobridgeSQLDataUpdateCoordinator,
+        config: MappingProxyType[str, Any],
+        hourly: bool,
+        name: str,
+        is_metric: bool,
     ) -> None:
         """Initialise the platform with a data instance and station."""
         super().__init__(coordinator)
@@ -161,7 +167,7 @@ class MeteobridgeSQLWeather(SingleCoordinatorWeatherEntity[MeteobridgeSQLDataUpd
         if hourly:
             for item in self.coordinator.data.hourly_forecast:
                 condition = item.icon
-                datetime =  as_utc(item.datetime).isoformat()
+                datetime = as_utc(item.datetime).isoformat()
                 humidity = item.humidity
                 precipitation_probability = item.precipitation_probability
                 native_precipitation = item.precipitation
@@ -169,7 +175,7 @@ class MeteobridgeSQLWeather(SingleCoordinatorWeatherEntity[MeteobridgeSQLDataUpd
                 native_temperature = item.temperature
                 native_apparent_temperature = item.apparent_temperature
                 wind_bearing = item.wind_bearing
-                native_visibility = item.visibility,
+                native_visibility = (item.visibility,)
                 native_wind_gust_speed = item.wind_gust
                 native_wind_speed = item.wind_speed
                 uv_index = item.uv_index

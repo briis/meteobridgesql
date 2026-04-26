@@ -60,7 +60,9 @@ class MeteobridgeSQLConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 database=user_input[CONF_DATABASE],
             )
             await self.hass.async_add_executor_job(meteobridge.initialize)
-            station_data: StationData = await meteobridge.async_get_station_data(user_input[CONF_MAC])
+            station_data: StationData = await meteobridge.async_get_station_data(
+                user_input[CONF_MAC]
+            )
 
         except MeteobridgeSQLDatabaseConnectionError as error:
             _LOGGER.error("Error connecting to MySQL Database: %s", error)
