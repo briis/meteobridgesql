@@ -7,11 +7,13 @@ import logging
 from types import MappingProxyType
 from typing import Any
 
-from homeassistant.components.weather import (
+from homeassistant.components.weather.const import (
     DOMAIN as WEATHER_DOMAIN,
+    WeatherEntityFeature,
+)
+from homeassistant.components.weather import (
     Forecast,
     SingleCoordinatorWeatherEntity,
-    WeatherEntityFeature,
 )
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import (
@@ -175,12 +177,11 @@ class MeteobridgeSQLWeather(
                 native_temperature = item.temperature
                 native_apparent_temperature = item.apparent_temperature
                 wind_bearing = item.wind_bearing
-                native_visibility = (item.visibility,)
                 native_wind_gust_speed = item.wind_gust
                 native_wind_speed = item.wind_speed
                 uv_index = item.uv_index
 
-                ha_item = {
+                ha_item: Forecast = {
                     "condition": condition,
                     "datetime": datetime,
                     "humidity": humidity,
@@ -190,7 +191,6 @@ class MeteobridgeSQLWeather(
                     "native_temperature": native_temperature,
                     "native_apparent_temperature": native_apparent_temperature,
                     "wind_bearing": wind_bearing,
-                    "native_visibility": native_visibility,
                     "native_wind_gust_speed": native_wind_gust_speed,
                     "native_wind_speed": native_wind_speed,
                     "uv_index": uv_index,

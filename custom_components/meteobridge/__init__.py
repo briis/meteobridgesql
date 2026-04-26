@@ -87,7 +87,7 @@ class CannotConnect(HomeAssistantError):
     """Unable to connect to the web site."""
 
 
-class MeteobridgeSQLDataUpdateCoordinator(DataUpdateCoordinator):
+class MeteobridgeSQLDataUpdateCoordinator(DataUpdateCoordinator["MeteobridgeSQLData"]):
     """Class to manage fetching WeatherFlow data."""
 
     def __init__(self, hass: HomeAssistant, config_entry: ConfigEntry) -> None:

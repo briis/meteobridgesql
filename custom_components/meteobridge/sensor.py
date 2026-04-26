@@ -5,7 +5,6 @@ from __future__ import annotations
 import logging
 
 from dataclasses import dataclass
-from types import MappingProxyType
 from typing import Any
 
 from homeassistant.components.sensor import (
@@ -33,10 +32,7 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.device_registry import DeviceEntryType, DeviceInfo
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.typing import StateType
-from homeassistant.helpers.update_coordinator import (
-    CoordinatorEntity,
-    DataUpdateCoordinator,
-)
+from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
 from . import MeteobridgeSQLDataUpdateCoordinator
 from .const import (
@@ -71,6 +67,7 @@ SENSOR_TYPES: tuple[MeteobridgeSQLEntityDescription, ...] = (
         key="aqi",
         name="Air Quality Index",
         icon="mdi:air-filter",
+        native_unit_of_measurement="LKI",
         device_class=SensorDeviceClass.AQI,
         state_class=SensorStateClass.MEASUREMENT,
         suggested_display_precision=1,
@@ -326,7 +323,7 @@ async def async_setup_entry(
     if coordinator.data.sensor_data == {}:
         return
 
-    entities: list[MeteobridgeSQLSensor[Any]] = [
+    entities: list[MeteobridgeSQLSensor] = [
         MeteobridgeSQLSensor(coordinator, description, config_entry)
         for description in SENSOR_TYPES
         if getattr(coordinator.data.sensor_data, description.key) is not None
@@ -335,7 +332,7 @@ async def async_setup_entry(
     async_add_entities(entities, False)
 
 
-class MeteobridgeSQLSensor(CoordinatorEntity[DataUpdateCoordinator], SensorEntity):
+class MeteobridgeSQLSensor(CoordinatorEntity[MeteobridgeSQLDataUpdateCoordinator], SensorEntity):
     """A MeteobridgeSQL sensor."""
 
     entity_description: MeteobridgeSQLEntityDescription
@@ -345,7 +342,7 @@ class MeteobridgeSQLSensor(CoordinatorEntity[DataUpdateCoordinator], SensorEntit
         self,
         coordinator: MeteobridgeSQLDataUpdateCoordinator,
         description: MeteobridgeSQLEntityDescription,
-        config: MappingProxyType[str, Any],
+        config: ConfigEntry,
     ) -> None:
         """Initialize a MeteobridgeSQL sensor."""
         super().__init__(coordinator)
@@ -383,7 +380,7 @@ class MeteobridgeSQLSensor(CoordinatorEntity[DataUpdateCoordinator], SensorEntit
         )
 
     @property
-    def extra_state_attributes(self) -> None:
+    def extra_state_attributes(self) -> dict[str, Any] | None:
         """Return non standard attributes."""
 
         if self.entity_description.key == "temperature":
