@@ -332,7 +332,9 @@ async def async_setup_entry(
     async_add_entities(entities, False)
 
 
-class MeteobridgeSQLSensor(CoordinatorEntity[MeteobridgeSQLDataUpdateCoordinator], SensorEntity):
+class MeteobridgeSQLSensor(
+    CoordinatorEntity[MeteobridgeSQLDataUpdateCoordinator], SensorEntity
+):
     """A MeteobridgeSQL sensor."""
 
     entity_description: MeteobridgeSQLEntityDescription
