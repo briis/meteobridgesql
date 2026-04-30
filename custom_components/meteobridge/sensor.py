@@ -67,7 +67,6 @@ SENSOR_TYPES: tuple[MeteobridgeSQLEntityDescription, ...] = (
         key="aqi",
         name="Air Quality Index",
         icon="mdi:air-filter",
-        native_unit_of_measurement="LKI",
         device_class=SensorDeviceClass.AQI,
         state_class=SensorStateClass.MEASUREMENT,
         suggested_display_precision=1,
