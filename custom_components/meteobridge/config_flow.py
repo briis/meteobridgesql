@@ -14,14 +14,12 @@ from homeassistant.const import (
     CONF_USERNAME,
 )
 from homeassistant.core import callback
-from homeassistant.helpers.event import async_call_later
 from pymeteobridgesql import (
     MeteobridgeSQL,
     MeteobridgeSQLDatabaseConnectionError,
     MeteobridgeSQLDataError,
     StationData,
 )
-from . import async_setup_entry, async_unload_entry
 from .const import (
     CONF_DATABASE,
     DEFAULT_PORT,
@@ -113,48 +111,28 @@ class MeteobridgeSQLOptionsFlowHandler(config_entries.OptionsFlow):
         """Initialize the WeatherFlow Forecast Options Flows."""
         self._config_entry = config_entry
 
-    async def _do_update(
-        self,
-        *args,
-        **kwargs,  # pylint: disable=unused-argument
-    ) -> None:
-        """Update after settings change."""
-        await async_unload_entry(self.hass, self.config_entry)
-        await async_setup_entry(self.hass, self.config_entry)
-
     async def async_step_init(self, user_input: dict[str, Any] | None = None):
         """Configure Options for WeatherFlow Forecast."""
 
         if user_input is not None:
-            async_call_later(self.hass, 2, self._do_update)
-            return self.async_create_entry(title="", data=user_input)
+            self.hass.config_entries.async_update_entry(
+                self._config_entry, data=user_input
+            )
+            return self.async_create_entry(title="", data={})
 
+        data = self._config_entry.data
         return self.async_show_form(
             step_id="init",
             data_schema=vol.Schema(
                 {
+                    vol.Required(CONF_MAC, default=data.get(CONF_MAC, "")): str,
+                    vol.Required(CONF_HOST, default=data.get(CONF_HOST, "")): str,
                     vol.Required(
-                        CONF_MAC, default=self._config_entry.data.get(CONF_MAC, "")
-                    ): str,
-                    vol.Required(
-                        CONF_HOST, default=self._config_entry.data.get(CONF_HOST, "")
-                    ): str,
-                    vol.Required(
-                        CONF_PORT,
-                        default=self._config_entry.data.get(CONF_PORT, DEFAULT_PORT),
+                        CONF_PORT, default=data.get(CONF_PORT, DEFAULT_PORT)
                     ): int,
-                    vol.Required(
-                        CONF_USERNAME,
-                        default=self._config_entry.data.get(CONF_USERNAME, ""),
-                    ): str,
-                    vol.Required(
-                        CONF_PASSWORD,
-                        default=self._config_entry.data.get(CONF_PASSWORD, ""),
-                    ): str,
-                    vol.Required(
-                        CONF_DATABASE,
-                        default=self._config_entry.data.get(CONF_DATABASE, ""),
-                    ): str,
+                    vol.Required(CONF_USERNAME, default=data.get(CONF_USERNAME, "")): str,
+                    vol.Required(CONF_PASSWORD, default=data.get(CONF_PASSWORD, "")): str,
+                    vol.Required(CONF_DATABASE, default=data.get(CONF_DATABASE, "")): str,
                 }
             ),
         )
