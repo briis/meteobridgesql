@@ -130,9 +130,15 @@ class MeteobridgeSQLOptionsFlowHandler(config_entries.OptionsFlow):
                     vol.Required(
                         CONF_PORT, default=data.get(CONF_PORT, DEFAULT_PORT)
                     ): int,
-                    vol.Required(CONF_USERNAME, default=data.get(CONF_USERNAME, "")): str,
-                    vol.Required(CONF_PASSWORD, default=data.get(CONF_PASSWORD, "")): str,
-                    vol.Required(CONF_DATABASE, default=data.get(CONF_DATABASE, "")): str,
+                    vol.Required(
+                        CONF_USERNAME, default=data.get(CONF_USERNAME, "")
+                    ): str,
+                    vol.Required(
+                        CONF_PASSWORD, default=data.get(CONF_PASSWORD, "")
+                    ): str,
+                    vol.Required(
+                        CONF_DATABASE, default=data.get(CONF_DATABASE, "")
+                    ): str,
                 }
             ),
         )
