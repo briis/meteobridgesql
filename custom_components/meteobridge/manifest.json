@@ -7,7 +7,7 @@
     "config_flow": true,
     "dependencies": [],
     "documentation": "https://github.com/briis/meteobridgesql",
-    "iot_class": "cloud_polling",
+    "iot_class": "local_polling",
     "issue_tracker": "https://github.com/briis/meteobridgesql/issues",
     "requirements": [
         "pymeteobridgesql==1.5.0",
