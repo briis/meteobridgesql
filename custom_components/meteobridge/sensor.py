@@ -281,8 +281,15 @@ SENSOR_TYPES: tuple[MeteobridgeSQLEntityDescription, ...] = (
         translation_key="wind_cardinal",
     ),
     MeteobridgeSQLEntityDescription(
-        key="windspeedavg",
+        key="windspeed",
         name="Wind Speed",
+        native_unit_of_measurement=UnitOfSpeed.METERS_PER_SECOND,
+        device_class=SensorDeviceClass.WIND_SPEED,
+        state_class=SensorStateClass.MEASUREMENT,
+    ),
+    MeteobridgeSQLEntityDescription(
+        key="windspeedavg",
+        name="Wind Speed Avg",
         native_unit_of_measurement=UnitOfSpeed.METERS_PER_SECOND,
         device_class=SensorDeviceClass.WIND_SPEED,
         state_class=SensorStateClass.MEASUREMENT,
@@ -290,6 +297,13 @@ SENSOR_TYPES: tuple[MeteobridgeSQLEntityDescription, ...] = (
     MeteobridgeSQLEntityDescription(
         key="windgust",
         name="Wind Gust",
+        native_unit_of_measurement=UnitOfSpeed.METERS_PER_SECOND,
+        device_class=SensorDeviceClass.WIND_SPEED,
+        state_class=SensorStateClass.MEASUREMENT,
+    ),
+    MeteobridgeSQLEntityDescription(
+        key="windgusthigh",
+        name="Wind Gust High",
         native_unit_of_measurement=UnitOfSpeed.METERS_PER_SECOND,
         device_class=SensorDeviceClass.WIND_SPEED,
         state_class=SensorStateClass.MEASUREMENT,
