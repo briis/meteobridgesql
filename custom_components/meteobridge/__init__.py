@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from datetime import timedelta
 import logging
-from typing import Self
+from typing import Self, cast
 
 from pymeteobridgesql import (
     ForecastDaily,
@@ -35,6 +35,8 @@ from homeassistant.loader import async_get_integration
 
 from .const import (
     CONF_DATABASE,
+    CONF_UPDATE_INTERVAL,
+    DEFAULT_UPDATE_INTERVAL,
     DOMAIN,
     STARTUP,
 )
@@ -97,7 +99,9 @@ class MeteobridgeSQLDataUpdateCoordinator(DataUpdateCoordinator["MeteobridgeSQLD
         self.hass = hass
         self.config_entry = config_entry
 
-        update_interval = timedelta(minutes=1)
+        update_interval = timedelta(
+            seconds=config_entry.data.get(CONF_UPDATE_INTERVAL, DEFAULT_UPDATE_INTERVAL)
+        )
 
         super().__init__(
             hass,
@@ -148,8 +152,12 @@ class MeteobridgeSQLData:
             self.sensor_data: RealtimeData = (
                 await self._weather_data.async_get_realtime_data(self._config[CONF_MAC])
             )
-            self.daily_forecast = await self._weather_data.async_get_forecast(False)
-            self.hourly_forecast = await self._weather_data.async_get_forecast(True)
+            self.daily_forecast = cast(
+                list[ForecastDaily], await self._weather_data.async_get_forecast(False)
+            )
+            self.hourly_forecast = cast(
+                list[ForecastHourly], await self._weather_data.async_get_forecast(True)
+            )
         except MeteobridgeSQLDatabaseConnectionError as unauthorized:
             _LOGGER.debug(unauthorized)
             raise Unauthorized from unauthorized

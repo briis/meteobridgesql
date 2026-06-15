@@ -23,8 +23,10 @@ ATTR_WEATHER_ATTRIBUTION = "Data provided by Visual Crossing"
 
 CONCENTRATION_GRAMS_PER_CUBIC_METER = "g/m³"
 CONF_DATABASE = "database"
+CONF_UPDATE_INTERVAL = "update_interval"
 
 DEFAULT_PORT = 3306
+DEFAULT_UPDATE_INTERVAL = 60
 DOMAIN = "meteobridge"
 
 MANUFACTURER = "Meteobridge"

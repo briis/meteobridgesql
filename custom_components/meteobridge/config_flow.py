@@ -22,7 +22,9 @@ from pymeteobridgesql import (
 )
 from .const import (
     CONF_DATABASE,
+    CONF_UPDATE_INTERVAL,
     DEFAULT_PORT,
+    DEFAULT_UPDATE_INTERVAL,
     DOMAIN,
 )
 
@@ -83,6 +85,7 @@ class MeteobridgeSQLConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 CONF_USERNAME: user_input[CONF_USERNAME],
                 CONF_PASSWORD: user_input[CONF_PASSWORD],
                 CONF_DATABASE: user_input[CONF_DATABASE],
+                CONF_UPDATE_INTERVAL: user_input[CONF_UPDATE_INTERVAL],
             },
         )
 
@@ -98,6 +101,9 @@ class MeteobridgeSQLConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                     vol.Required(CONF_USERNAME): str,
                     vol.Required(CONF_PASSWORD): str,
                     vol.Required(CONF_DATABASE): str,
+                    vol.Required(
+                        CONF_UPDATE_INTERVAL, default=DEFAULT_UPDATE_INTERVAL
+                    ): vol.All(vol.Coerce(int), vol.In([15, 30, 45, 60])),
                 }
             ),
             errors=errors or {},
@@ -139,6 +145,10 @@ class MeteobridgeSQLOptionsFlowHandler(config_entries.OptionsFlow):
                     vol.Required(
                         CONF_DATABASE, default=data.get(CONF_DATABASE, "")
                     ): str,
+                    vol.Required(
+                        CONF_UPDATE_INTERVAL,
+                        default=data.get(CONF_UPDATE_INTERVAL, DEFAULT_UPDATE_INTERVAL),
+                    ): vol.All(vol.Coerce(int), vol.In([15, 30, 45, 60])),
                 }
             ),
         )

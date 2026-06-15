@@ -17,7 +17,8 @@
                     "port": "MySQL Port",
                     "username": "MySQL Bruger",
                     "password": "MySQL Kodeord",
-                    "database": "Database navn"
+                    "database": "Database navn",
+                    "update_interval": "Opdateringsinterval (sekunder)"
                 }
             }
         }
@@ -31,7 +32,8 @@
                     "port": "MySQL Port",
                     "username": "MySQL Bruger",
                     "password": "MySQL Kodeord",
-                    "database": "Database navn"
+                    "database": "Database navn",
+                    "update_interval": "Opdateringsinterval (sekunder)"
                 }
             }
         }

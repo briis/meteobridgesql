@@ -17,7 +17,8 @@
                     "port": "MySQL Port",
                     "username": "MySQL User",
                     "password": "MySQL Password",
-                    "database": "Database name"
+                    "database": "Database name",
+                    "update_interval": "Update interval (seconds)"
                 }
             }
         }
@@ -31,7 +32,8 @@
                     "port": "MySQL Port",
                     "username": "MySQL User",
                     "password": "MySQL Password",
-                    "database": "Database name"
+                    "database": "Database name",
+                    "update_interval": "Update interval (seconds)"
                 }
             }
         }
