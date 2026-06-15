@@ -13,5 +13,5 @@
         "pymeteobridgesql==1.6.2",
         "mysql-connector-python==9.7.0"
     ],
-    "version": "1.3.3"
+    "version": "1.3.4"
 }
