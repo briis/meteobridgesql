@@ -16,10 +16,10 @@ from homeassistant.components.sensor import (
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import (
     CONF_MAC,
-    CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
     DEGREE,
     PERCENTAGE,
     UnitOfIrradiance,
+    UnitOfDensity,
     UnitOfLength,
     UnitOfPrecipitationDepth,
     UnitOfPressure,
@@ -146,21 +146,21 @@ SENSOR_TYPES: tuple[MeteobridgeSQLEntityDescription, ...] = (
     MeteobridgeSQLEntityDescription(
         key="pm1",
         name="Particulate Matter PM1",
-        native_unit_of_measurement=CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
+        native_unit_of_measurement=UnitOfDensity.MICROGRAMS_PER_CUBIC_METER,
         device_class=SensorDeviceClass.PM1,
         state_class=SensorStateClass.MEASUREMENT,
     ),
     MeteobridgeSQLEntityDescription(
         key="pm10",
         name="Particulate Matter PM10",
-        native_unit_of_measurement=CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
+        native_unit_of_measurement=UnitOfDensity.MICROGRAMS_PER_CUBIC_METER,
         device_class=SensorDeviceClass.PM10,
         state_class=SensorStateClass.MEASUREMENT,
     ),
     MeteobridgeSQLEntityDescription(
         key="pm25",
         name="Particulate Matter PM2.5",
-        native_unit_of_measurement=CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
+        native_unit_of_measurement=UnitOfDensity.MICROGRAMS_PER_CUBIC_METER,
         device_class=SensorDeviceClass.PM25,
         state_class=SensorStateClass.MEASUREMENT,
     ),

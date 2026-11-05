@@ -1,11 +1,20 @@
 
+## Release 1.3.6
+
+Date: `2026-11-05`
+
+### Changes
+
+* **Breaking:** Minimum required Home Assistant version is now 2026.11.0.
+* Replaced the deprecated `CONCENTRATION_MICROGRAMS_PER_CUBIC_METER` constant with `UnitOfDensity.MICROGRAMS_PER_CUBIC_METER`. This removes the deprecation warning in the Home Assistant log; the constant will be removed in HA Core 2027.8.
+
 ## Release 1.3.5
 
 Date: `2026-11-05`
 
 ### Changes
 
-* Fixed config flow schema validation for Home Assistant 2026.11, which replaced `voluptuous` with `probatio`. Older Home Assistant versions still fall back to `voluptuous`.
+* Fixed config flow schema validation for Home Assistant 2026.11, which replaced `voluptuous` with `probatio`.
 * Removed the deprecated `CONNECTION_CLASS` attribute from the config flow.
 * Added brand icons and logos (`brand/` folder).
 * Bumped `mysql-connector-python` to 26.10.0
