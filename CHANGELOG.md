@@ -1,4 +1,15 @@
 
+## Release 1.3.5
+
+Date: `2026-11-05`
+
+### Changes
+
+* Fixed config flow schema validation for Home Assistant 2026.11, which replaced `voluptuous` with `probatio`. Older Home Assistant versions still fall back to `voluptuous`.
+* Removed the deprecated `CONNECTION_CLASS` attribute from the config flow.
+* Added brand icons and logos (`brand/` folder).
+* Bumped `mysql-connector-python` to 26.10.0
+
 ## Release 1.2.2
 
 Date: `2025-05-20`
