@@ -35,7 +35,6 @@ class MeteobridgeSQLConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     """Config Flow for MeteobridgeSQL."""
 
     VERSION = 1
-    CONNECTION_CLASS = config_entries.CONN_CLASS_CLOUD_POLL
 
     @staticmethod
     @callback
