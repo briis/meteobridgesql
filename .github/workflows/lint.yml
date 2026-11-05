@@ -27,8 +27,9 @@ jobs:
             python-version: "3.14"
             cache: "pip"
 
-        - name: "Install requirements"
-          run: python3 -m pip install -r requirements.txt
+        - name: "Install Ruff"
+          # Only Ruff is needed for linting; the version is taken from requirements.txt
+          run: python3 -m pip install "$(grep -E '^ruff==' requirements.txt)"
 
         - name: "Run"
           run: python3 -m ruff check .
